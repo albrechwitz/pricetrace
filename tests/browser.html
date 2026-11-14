@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><title>PriceTrace browser checks</title>
+<h1>PriceTrace browser checks</h1>
+<p>가상 자료 11개 검사는 자동 실행됩니다. 실제 계정이나 메일은 사용하지 않습니다.</p>
+<ul id="results"></ul><p id="summary">Running</p>
+<h2>브라우저 저장 검사</h2>
+<p>앱을 열지 않은 새 localhost 포트에서 실행하세요. 기존 mailtrace-local 저장소가 있으면 실행하지 않습니다. 시험 계정만 읽고 삭제합니다.</p>
+<button id="storage-check">새 환경에서 IndexedDB 검사</button><p id="storage-check-result" role="status"></p>
+<h2>별도 수동 확인</h2>
+<p>아래 환율 버튼만 외부 네트워크를 사용합니다. 이 결과는 가상 자료 검사와 별개입니다.</p>
+<button id="fx-check">실제 과거 환율 확인</button><p id="fx-result" role="status"></p>
+<button id="mobile-button">390px 화면 열기</button>
+<script type="module">
+import {htmlContent,normalizeGmailMessage} from './gmail.js';
+import {extractMessages} from './core.js';
+import {getHistoricalRate} from './rates.js';
+import {saveSnapshot,loadSnapshot,removeSnapshot} from './storage.js';
+import {buildCatalog} from './catalog.js';
+import {createDemoMessages,demoHtmlMails,demoRates} from './demo-mails.js';
+
+document.querySelector('#fx-check').addEventListener('click',async()=>{try{const rate=await getHistoricalRate('2025-01-02','USD');document.querySelector('#fx-result').textContent='PASS · 외부 환율 조회 · '+rate.date+' · 1 USD = '+rate.rate+' KRW';}catch(error){document.querySelector('#fx-result').textContent='FAIL · '+error.message;}});
+document.querySelector('#storage-check').addEventListener('click',async event=>{
+  const button=event.currentTarget,result=document.querySelector('#storage-check-result');
+  const account='qa-'+crypto.randomUUID()+'@example.invalid';let created=false;
+  button.disabled=true;
+  try{
+    if(!['127.0.0.1','localhost','[::1]'].includes(location.hostname))throw new Error('별도 localhost 테스트 환경에서만 실행할 수 있습니다.');
+    if(!indexedDB.databases)throw new Error('기존 저장소 유무를 확인할 수 없어 실행하지 않습니다.');
+    if((await indexedDB.databases()).some(database=>database.name==='mailtrace-local'))throw new Error('기존 저장소가 있어 실행하지 않았습니다. 사용하지 않은 새 포트에서 이 검사 페이지부터 여세요.');
+    created=true;
+    await saveSnapshot({account,messages:[{id:'qa',text:'synthetic storage test'}],token:'MUST_NOT_PERSIST',rates:[],reviews:{qa:true},merges:{a:'b'}});
+    const restored=await loadSnapshot(account);
+    assert(restored.account===account&&restored.messages.length===1&&!restored.token&&restored.reviews.qa&&restored.merges.a==='b','Snapshot mismatch');
+    assert(await loadSnapshot('missing-'+account)===null,'Account isolation failed');
+    await removeSnapshot(account);created=false;
+    assert(await loadSnapshot(account)===null,'Deletion failed');
+    result.textContent='PASS · 가상 계정 IndexedDB 저장·복원·계정 분리·삭제·토큰 제외';
+  }catch(error){result.textContent='FAIL · '+error.message;}
+  finally{if(created)await removeSnapshot(account).catch(()=>{});button.disabled=false;}
+});
+
+let passed=0,failed=0;
+function check(name,fn){const li=document.createElement('li');try{fn();li.textContent='PASS · '+name;passed++;}catch(e){li.textContent='FAIL · '+name+' · '+e.message;failed++;}document.querySelector('#results').append(li);}
+function assert(value,message='Assertion failed'){if(!value)throw new Error(message);}
+const html='<table><tr><td>판매처:</td><td>HTML 상점</td></tr><tr><td>주문번호:</td><td>H-1</td></tr><tr><td>주문일:</td><td>2026-11-14</td></tr><tr><td>상품명:</td><td>유리컵</td></tr><tr><td>수량:</td><td>2개</td></tr><tr><td>단가:</td><td>8,000원</td></tr></table>';
+check('HTML table label/value cells retain line boundaries',()=>{const parsed=htmlContent(html);const [row]=extractMessages([{id:'h1',...parsed}]);assert(row.product==='유리컵'&&row.quantity===2&&row.unitPrice.amount===8000&&row.issues.length===0);});
+check('HTML label/value cells need no colon and keep the same meaning',()=>{const parsed=htmlContent(html.replaceAll(':',''));const [row]=extractMessages([{id:'h2',...parsed}]);assert(row.product==='유리컵'&&row.quantity===2&&row.unitPrice.amount===8000&&row.issues.length===0);});
+check('Untrusted email scripts and remote resources never enter live DOM',()=>{const parsed=htmlContent('<script>window.mailtraceXss=1<\/script><img src="data:,x" onerror="window.mailtraceXss=2"><iframe srcdoc="bad"></iframe><p>상품명: 안전한 텍스트</p>');assert(!window.mailtraceXss&&parsed.text==='상품명: 안전한 텍스트'&&!document.querySelector('iframe,img'));});
+check('Malformed JSON-LD falls back to visible text',()=>{const parsed=htmlContent('<script type="application/ld+json">{invalid}<\/script><p>상품명: 노트</p>');assert(parsed.structured.length===0&&parsed.text==='상품명: 노트');});
+check('Nested MIME HTML extracts structured Order while retaining plain text',()=>{const structured={'@type':'Order',seller:{name:'HTML Store'},orderNumber:'X2',orderDate:'2026-11-14',acceptedOffer:{itemOffered:{name:'Desk lamp'},eligibleQuantity:{value:1},price:22,priceCurrency:'USD'}};const payload='<script type="application/ld+json">'+JSON.stringify(structured)+'<\/script><p>Thanks for your order</p>';const encode=s=>btoa(String.fromCharCode(...new TextEncoder().encode(s))).replaceAll('+','-').replaceAll('/','_').replaceAll('=','');const m=normalizeGmailMessage({id:'html',payload:{mimeType:'multipart/alternative',parts:[{mimeType:'text/plain',body:{data:encode('Plain text version')}},{mimeType:'text/html',body:{data:encode(payload)}}]}});const [row]=extractMessages([m]);assert(m.text==='Plain text version'&&row.product==='Desk lamp'&&row.unitPrice.amount===22);});
+check('HTML column headers preserve item cells and order-ID links',()=>{const p=htmlContent('<table><tr><th>Item</th><th>Quantity</th><th>Unit price</th><th>Item total</th></tr><tr><td><span>Paper</span> <b>A5</b></td><td>2</td><td>KRW 3000</td><td>KRW 6000</td></tr></table><a href="https://shop.example/orders?orderId=ORDER-123">Order</a>');const [r]=extractMessages([{id:'table',subject:'[Store] order',...p}]);assert(r.product==='Paper A5'&&r.quantity===2&&r.unitPrice.amount===3000&&r.orderId==='ORDER-123');});
+const demoMessages=createDemoMessages(htmlContent),demoCatalog=buildCatalog(extractMessages(demoMessages),demoRates);
+check('current HTML demo exercises the live parser and retains all fictional originals',()=>{assert(demoHtmlMails.length===13&&demoMessages.every(m=>m.htmlText&&m.text));assert(demoCatalog.summary.orders===8&&demoCatalog.summary.products===6&&demoCatalog.summary.review===2);});
+check('forwarded HTML demo dates and explicit discounts produce the expected trend',()=>{const oat=demoCatalog.products.find(p=>p.identity.name==='오트 밀크 1L × 6팩');assert(oat.latest.change.amount===1500&&Math.abs(oat.latest.pricing.discount.rate-15)<0.000001,'Unexpected price change or discount');assert(oat.purchases[0].order.date==='2026-08-12'&&oat.purchases[0].order.dateBasis==='전달 원문 발송일',JSON.stringify(oat.purchases[0].order));});
+check('HTML demo links a whole-order receipt and preserves the partial-refund estimate',()=>{const p=demoCatalog.products.find(p=>p.identity.name==='커팅매트, 그린, A3').latest;assert(p.source.messageIds.length===3&&p.pricing.regular.krw===7000&&p.orderLinks[0].adjustments[0].amount.amount===21000&&p.issues.length===1);});
+check('HTML demo links a truncated receipt without doubling a two-unit price',()=>{const p=demoCatalog.products.find(p=>p.identity.name.startsWith('데일리 코튼')).latest;assert(p.source.messageIds.length===2&&p.order.quantity===2&&p.pricing.regular.krw===8000&&!p.issues.length);});
+check('HTML demo uses JSON-LD plus explicit KRW evidence and excludes completed cancellations',()=>{const p=demoCatalog.products.find(p=>p.identity.name==='Travel tumbler 450ml').latest;assert(p.pricing.regular.krw===36400&&p.pricing.regular.original.amount===26&&p.change.amount===3280);const cancelled=demoCatalog.products.find(p=>p.identity.name==='유기농 코튼 파우치');assert(cancelled.purchaseCount===0&&cancelled.latest.order.cancelled);});
+document.querySelector('#summary').textContent=`${passed} passed / ${failed} failed`;
+
+document.querySelector('#mobile-button').addEventListener('click',()=>{if(document.querySelector('#mobile-preview'))return;const frame=document.createElement('iframe');frame.id='mobile-preview';frame.title='390px PriceTrace';frame.src='./';frame.style.cssText='display:block;width:390px;height:844px;border:1px solid #ccc;margin-top:16px';document.body.append(frame);});
+</script></html>
