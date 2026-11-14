@@ -24,7 +24,7 @@ function renderConnectionState(){
   $('auth-step-status').textContent=state.token?'Gmail 연결됨':'연결 대기';
   $('connect-page-button').textContent=state.token?'Gmail 연결됨':state.account?'Google에서 Gmail 다시 연결':'Google에서 Gmail 연결';
   $('connect-page-button').disabled=state.busy||!state.clientId||!!state.token;
-  $('connect-page-help').textContent=state.token?'아래 Home으로 이동해 주문 기록을 가져오세요.':state.clientId?'테스트 사용자로 등록한 Gmail을 선택하세요.':'02단계에서 클라이언트 ID를 먼저 저장하세요.';
+  $('connect-page-help').textContent=state.token?'다른 계정으로 바꾸려면 아래에서 Gmail 연결을 해제한 뒤 다시 연결하세요. 저장된 구매 기록은 유지됩니다.':state.clientId?'Google 창에서 연결할 Gmail을 선택하세요. 저장된 계정과 다른 계정도 선택할 수 있으며, 테스트 사용자로 등록된 계정이어야 합니다.':'02단계에서 클라이언트 ID를 먼저 저장하세요.';
 }
 function prepareSettings(){
   $('client-id-input').value=state.clientId;
@@ -52,7 +52,7 @@ function startConnect(){
       scheduleExpiry(expiresAt);setBusy(false);render();persistData();notify('Gmail이 연결됐어요. 전체 주문 가져오기로 구매 기록을 업데이트하세요.');
     }catch(error){if(epoch!==state.epoch)return;state.token=null;try{clearSession();}catch{}setBusy(false);render();notify(error.message,true);}
 
-  },state.account);}catch(e){setBusy(false);notify(e.message,true);}
+  });}catch(e){setBusy(false);notify(e.message,true);}
 }
 function renderFetchReport(result,conversion){const d=$('fetch-report');d.hidden=false;$('fetch-report-title').textContent=`이번 가져오기: ${result.messages.length}건 처리 · ${result.failures.length}건 실패`;const body=$('fetch-report-body');body.replaceChildren(node('p','같은 메일은 다시 가져와도 추가되지 않으며, 기존 구매 기록과 합쳐 저장합니다.'));if(result.failures.length){const list=node('ul');for(const [i,error] of result.failures.entries())list.append(node('li',`메일 ${i+1}: ${error.error}`));body.append(list);const retry=node('button','누락된 메일만 다시 가져오기','button');retry.id='retry-failed';retry.type='button';retry.addEventListener('click',()=>collectOrders(result.failures.map(f=>f.id)));body.append(retry);}if(conversion.failures.length)body.append(node('p',`환율 ${conversion.failures.length}건을 확인하지 못했습니다.`));}
 context.on('save-settings','click',async()=>{
@@ -95,7 +95,7 @@ async function collectOrders(messageIds){
   finally{if(epoch===state.epoch){state.controller=null;setBusy(false);render();}}
 }
 context.on('cancel-button','click',()=>state.controller?.abort());
-context.on('disconnect-button','click',()=>{state.epoch++;state.controller?.abort();revoke(state.token);expireAuth(false);setBusy(false);render();notify('Gmail 연결을 해제했어요. 저장된 구매 기록은 계속 볼 수 있어요.');});
+context.on('disconnect-button','click',()=>{state.epoch++;state.controller?.abort();revoke(state.token);expireAuth(false);setBusy(false);render();notify('Gmail 연결을 해제했어요. 다시 연결하면 사용할 Google 계정을 선택할 수 있어요. 저장된 구매 기록은 계속 볼 수 있어요.');});
 
   context.on('guide-button','click',()=>$('guide-dialog').showModal());
   context.onRender(renderConnectionState);

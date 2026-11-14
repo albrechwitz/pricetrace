@@ -1,7 +1,34 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {buildQuery,decodeBody,normalizeGmailMessage,gmailRequest,fetchOrders} from '../dist/gmail.js';
+import {buildQuery,decodeBody,normalizeGmailMessage,gmailRequest,fetchOrders,authorize} from '../dist/gmail.js';
 const encode=s=>Buffer.from(s).toString('base64url');
+test('every explicit authorization opens account selection without a saved-account hint',()=>{
+  const prior=globalThis.google,configs=[],requests=[],results=[],scope='https://www.googleapis.com/auth/gmail.readonly';
+  globalThis.google={accounts:{oauth2:{initTokenClient(config){configs.push(config);return {requestAccessToken(options){requests.push(options);}};},hasGrantedAllScopes(response,requested){assert.equal(requested,scope);return true;}}}};
+  try{
+    authorize('client',(...args)=>results.push(args));
+    // An older caller supplying the former third argument cannot bypass selection.
+    authorize('client',(...args)=>results.push(args),'saved@example.invalid');
+    assert.deepEqual(requests,[{prompt:'select_account'},{prompt:'select_account'}]);
+    for(const config of configs){assert.equal(config.scope,scope);assert.equal(config.include_granted_scopes,false);assert.ok(!Object.hasOwn(config,'hint')&&!Object.hasOwn(config,'login_hint'));}
+    configs[1].callback({access_token:'SYNTHETIC_TOKEN',expires_in:'3600'});
+    assert.deepEqual(results,[[null,{token:'SYNTHETIC_TOKEN',expiresIn:3600}]]);
+  }finally{if(prior===undefined)delete globalThis.google;else globalThis.google=prior;}
+});
+
+test('account chooser cancellation, denial and missing readonly scope never report authorization success',()=>{
+  const prior=globalThis.google,results=[];let config;
+  globalThis.google={accounts:{oauth2:{initTokenClient(value){config=value;return {requestAccessToken(){}};},hasGrantedAllScopes(){return false;}}}};
+  try{
+    authorize('client',(...args)=>results.push(args));
+    config.error_callback({type:'popup_closed'});
+    config.callback({error:'access_denied'});
+    config.callback({access_token:'SYNTHETIC_TOKEN',expires_in:3600});
+    assert.equal(results.length,3);assert.ok(results.every(args=>args.length===1&&args[0] instanceof Error));
+    assert.match(results[0][0].message,/연결 창을 닫았어요/);assert.match(results[1][0].message,/허용되지/);assert.match(results[2][0].message,/읽기 권한/);
+  }finally{if(prior===undefined)delete globalThis.google;else globalThis.google=prior;}
+});
+
 test('search covers all sellers and dates with no platform conditions',()=>{const q=buildQuery();assert.ok(!/from:|newer_than:|after:|before:/.test(q));assert.match(q,/subject:주문/);assert.match(q,/subject:refund/);});
 test('base64url handles Korean UTF-8 and arbitrary byte lengths',()=>{
   for(const s of ['한글 상품명','a','ab','abc','상품명: 커피\n수량: 2'])assert.equal(decodeBody(encode(s)),s);
