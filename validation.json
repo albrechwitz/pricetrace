@@ -1,0 +1,1580 @@
+{
+  "dataset": "synthetic-price-histories",
+  "fixture": "dist/samples.js",
+  "engineVersion": "3.2.0",
+  "real_mail_tested": false,
+  "messages": 24,
+  "extractedRows": 24,
+  "summary": {
+    "orders": 21,
+    "products": 11,
+    "review": 4
+  },
+  "productGroupsIncludingUnresolvedAndCancelled": 13,
+  "repeatProducts": 8,
+  "products": [
+    {
+      "identity": {
+        "name": "Weekly planner A5",
+        "manufacturer": "Paperroom",
+        "manufacturers": [
+          "Paperroom"
+        ],
+        "sellers": [
+          "Everyday Supply"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 2,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"everyday\",\"demo-13\"]",
+            "id": "DEMO-13",
+            "date": "2026-09-04",
+            "dateBasis": "원문 구매일",
+            "seller": "Everyday Supply",
+            "platform": "Everyday",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 17,
+                "currency": "USD"
+              },
+              "krw": 23460,
+              "kind": "환율 추정",
+              "rate": 1380,
+              "rateDate": "2026-09-04",
+              "rateSource": "샘플용 가상 환율"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 17,
+                "currency": "USD"
+              },
+              "krw": 23460,
+              "kind": "환율 추정",
+              "rate": 1380,
+              "rateDate": "2026-09-04",
+              "rateSource": "샘플용 가상 환율"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 17,
+              "currency": "USD"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-13"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"everyday\",\"demo-14\"]",
+            "id": "DEMO-14",
+            "date": "2026-11-13",
+            "dateBasis": "원문 구매일",
+            "seller": "Everyday Supply",
+            "platform": "Everyday",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 18,
+                "currency": "USD"
+              },
+              "krw": 25200,
+              "kind": "환율 추정",
+              "rate": 1400,
+              "rateDate": "2026-11-13",
+              "rateSource": "샘플용 가상 환율"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 16.2,
+                  "currency": "USD"
+                },
+                "krw": 22680,
+                "kind": "환율 추정",
+                "rate": 1400,
+                "rateDate": "2026-11-13",
+                "rateSource": "샘플용 가상 환율"
+              },
+              "rate": 10,
+              "rateKind": "원문",
+              "basis": "할인가 명시"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 16.2,
+                "currency": "USD"
+              },
+              "krw": 22680,
+              "kind": "환율 추정",
+              "rate": 1400,
+              "rateDate": "2026-11-13",
+              "rateSource": "샘플용 가상 환율"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 16.2,
+              "currency": "USD"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 1740,
+            "percent": 7.41687979539642,
+            "from": "2026-09-04",
+            "to": "2026-11-13",
+            "estimated": true,
+            "original": {
+              "amount": 1,
+              "currency": "USD"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-14"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "데스크 매트",
+        "manufacturer": null,
+        "manufacturers": [],
+        "sellers": [
+          "룸앤데이"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 1,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-20\"]",
+            "id": "DEMO-20",
+            "date": "2026-11-12",
+            "dateBasis": "원문 구매일",
+            "seller": "룸앤데이",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 25000,
+                "currency": "KRW"
+              },
+              "krw": 25000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-12"
+            },
+            "regularBasis": "주문 결제액 ÷ 수량을 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": null,
+            "orderTotal": {
+              "original": {
+                "amount": 25000,
+                "currency": "KRW"
+              },
+              "krw": 25000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-12"
+            },
+            "originalLineTotal": null,
+            "originalOrderTotal": {
+              "amount": 25000,
+              "currency": "KRW"
+            },
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-20"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "드립백 커피 12개입",
+        "manufacturer": "로스트랩",
+        "manufacturers": [
+          "로스트랩"
+        ],
+        "sellers": [
+          "느린상점",
+          "데일리서플라이"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 3,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-4\"]",
+            "id": "DEMO-4",
+            "date": "2026-08-22",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 15900,
+                "currency": "KRW"
+              },
+              "krw": 15900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-08-22"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 15900,
+                "currency": "KRW"
+              },
+              "krw": 15900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-08-22"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 15900,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-4"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-5\"]",
+            "id": "DEMO-5",
+            "date": "2026-10-05",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 14500,
+                "currency": "KRW"
+              },
+              "krw": 14500,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-10-05"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 14500,
+                "currency": "KRW"
+              },
+              "krw": 14500,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-10-05"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 14500,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": -1400,
+            "percent": -8.80503144654088,
+            "from": "2026-08-22",
+            "to": "2026-10-05",
+            "estimated": false,
+            "original": {
+              "amount": -1400,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-5"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"데일리마켓\",\"demo-6\"]",
+            "id": "DEMO-6",
+            "date": "2026-11-12",
+            "dateBasis": "원문 구매일",
+            "seller": "데일리서플라이",
+            "platform": "데일리마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 12900,
+                "currency": "KRW"
+              },
+              "krw": 12900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-12"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 12900,
+                "currency": "KRW"
+              },
+              "krw": 12900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-12"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 12900,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": -1600,
+            "percent": -11.03448275862069,
+            "from": "2026-10-05",
+            "to": "2026-11-12",
+            "estimated": false,
+            "original": {
+              "amount": -1600,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-6",
+            "sample-19"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "재생지 노트 A5",
+        "manufacturer": null,
+        "manufacturers": [],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 2,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-11\"]",
+            "id": "DEMO-11",
+            "date": "2026-08-01",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 2,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 6400,
+                "currency": "KRW"
+              },
+              "krw": 6400,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-08-01"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 12800,
+                "currency": "KRW"
+              },
+              "krw": 12800,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-08-01"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 12800,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-11"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-12\"]",
+            "id": "DEMO-12",
+            "date": "2026-11-11",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 2,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 6900,
+                "currency": "KRW"
+              },
+              "krw": 6900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-11"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 13800,
+                "currency": "KRW"
+              },
+              "krw": 13800,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-11"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 13800,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 500,
+            "percent": 7.8125,
+            "from": "2026-08-01",
+            "to": "2026-11-11",
+            "estimated": false,
+            "original": {
+              "amount": 500,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-12"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "오트 밀크 1L × 6팩",
+        "manufacturer": "오트데이",
+        "manufacturers": [
+          "오트데이"
+        ],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 3,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-1\"]",
+            "id": "DEMO-1",
+            "date": "2026-08-12",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 16800,
+                "currency": "KRW"
+              },
+              "krw": 16800,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-08-12"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 16800,
+                "currency": "KRW"
+              },
+              "krw": 16800,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-08-12"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 16800,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-1"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-2\"]",
+            "id": "DEMO-2",
+            "date": "2026-09-20",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 17400,
+                "currency": "KRW"
+              },
+              "krw": 17400,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-09-20"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 17400,
+                "currency": "KRW"
+              },
+              "krw": 17400,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-09-20"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 17400,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 600,
+            "percent": 3.571428571428571,
+            "from": "2026-08-12",
+            "to": "2026-09-20",
+            "estimated": false,
+            "original": {
+              "amount": 600,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-2"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-3\"]",
+            "id": "DEMO-3",
+            "date": "2026-11-10",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 18900,
+                "currency": "KRW"
+              },
+              "krw": 18900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-10"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 16065,
+                  "currency": "KRW"
+                },
+                "krw": 16065,
+                "kind": "원화 원문",
+                "rate": 1,
+                "rateDate": "2026-11-10"
+              },
+              "rate": 15,
+              "rateKind": "원문",
+              "basis": "할인가 명시"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 16065,
+                "currency": "KRW"
+              },
+              "krw": 16065,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-10"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 16065,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 1500,
+            "percent": 8.620689655172415,
+            "from": "2026-09-20",
+            "to": "2026-11-10",
+            "estimated": false,
+            "original": {
+              "amount": 1500,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-3"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "티스푼 세트",
+        "manufacturer": null,
+        "manufacturers": [],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 1,
+      "reviewCount": 1,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-21\"]",
+            "id": "DEMO-21",
+            "date": "2026-11-10",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 2,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 8000,
+                "currency": "KRW"
+              },
+              "krw": 8000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-10"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 12000,
+                "currency": "KRW"
+              },
+              "krw": 12000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-10"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 12000,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": false,
+          "issues": [
+            "단가 × 수량과 상품금액이 일치하지 않아요"
+          ],
+          "sourceMessageIds": [
+            "sample-21"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "무향 핸드워시 500ml",
+        "manufacturer": "클린데이",
+        "manufacturers": [
+          "클린데이"
+        ],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 2,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-7\"]",
+            "id": "DEMO-7",
+            "date": "2026-09-01",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 9900,
+                "currency": "KRW"
+              },
+              "krw": 9900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-09-01"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 8910,
+                  "currency": "KRW"
+                },
+                "krw": 8910,
+                "kind": "할인율 계산",
+                "rate": 1,
+                "rateDate": "2026-09-01"
+              },
+              "rate": 10,
+              "rateKind": "원문",
+              "basis": "명시된 할인율로 계산"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 8910,
+                "currency": "KRW"
+              },
+              "krw": 8910,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-09-01"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 8910,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-7"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-8\"]",
+            "id": "DEMO-8",
+            "date": "2026-11-09",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 9900,
+                "currency": "KRW"
+              },
+              "krw": 9900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-09"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 8910,
+                  "currency": "KRW"
+                },
+                "krw": 8910,
+                "kind": "할인율 계산",
+                "rate": 1,
+                "rateDate": "2026-11-09"
+              },
+              "rate": 10,
+              "rateKind": "원문",
+              "basis": "명시된 할인율로 계산"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 8910,
+                "currency": "KRW"
+              },
+              "krw": 8910,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-09"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 8910,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 0,
+            "percent": 0,
+            "from": "2026-09-01",
+            "to": "2026-11-09",
+            "estimated": false,
+            "original": {
+              "amount": 0,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-8"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "세라믹 머그 320ml",
+        "manufacturer": "무드웨어",
+        "manufacturers": [
+          "무드웨어"
+        ],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 2,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-9\"]",
+            "id": "DEMO-9",
+            "date": "2026-09-15",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 18000,
+                "currency": "KRW"
+              },
+              "krw": 18000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-09-15"
+            },
+            "regularBasis": "소비자가 명시",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 16000,
+                  "currency": "KRW"
+                },
+                "krw": 16000,
+                "kind": "원화 원문",
+                "rate": 1,
+                "rateDate": "2026-09-15"
+              },
+              "rate": 11.111111111111116,
+              "rateKind": "가격으로 계산",
+              "basis": "할인가 명시"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 16000,
+                "currency": "KRW"
+              },
+              "krw": 16000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-09-15"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 16000,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-9"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-10\"]",
+            "id": "DEMO-10",
+            "date": "2026-11-08",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 20000,
+                "currency": "KRW"
+              },
+              "krw": 20000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-08"
+            },
+            "regularBasis": "소비자가 명시",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 18000,
+                  "currency": "KRW"
+                },
+                "krw": 18000,
+                "kind": "원화 원문",
+                "rate": 1,
+                "rateDate": "2026-11-08"
+              },
+              "rate": 9.999999999999998,
+              "rateKind": "가격으로 계산",
+              "basis": "할인가 명시"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 18000,
+                "currency": "KRW"
+              },
+              "krw": 18000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-08"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 18000,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 2000,
+            "percent": 11.11111111111111,
+            "from": "2026-09-15",
+            "to": "2026-11-08",
+            "estimated": false,
+            "original": {
+              "amount": 2000,
+              "currency": "KRW"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-10"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "Travel tumbler 450ml",
+        "manufacturer": "Fieldworks",
+        "manufacturers": [
+          "Fieldworks"
+        ],
+        "sellers": [
+          "Field Store"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 2,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"fieldstore\",\"demo-15\"]",
+            "id": "DEMO-15",
+            "date": "2026-08-18",
+            "dateBasis": "원문 구매일",
+            "seller": "Field Store",
+            "platform": "Field Store",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 24,
+                "currency": "USD"
+              },
+              "krw": 33120,
+              "kind": "원화 원문",
+              "rate": null,
+              "rateDate": "2026-08-18"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 24,
+                "currency": "USD"
+              },
+              "krw": 33120,
+              "kind": "원화 단가로 계산",
+              "rate": null,
+              "rateDate": "2026-08-18"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 24,
+              "currency": "USD"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-15"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"fieldstore\",\"demo-16\"]",
+            "id": "DEMO-16",
+            "date": "2026-11-07",
+            "dateBasis": "원문 구매일",
+            "seller": "Field Store",
+            "platform": "Field Store",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 26,
+                "currency": "USD"
+              },
+              "krw": 36400,
+              "kind": "원화 원문",
+              "rate": null,
+              "rateDate": "2026-11-07"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": {
+              "original": {
+                "amount": 26,
+                "currency": "USD"
+              },
+              "krw": 36400,
+              "kind": "원화 단가로 계산",
+              "rate": null,
+              "rateDate": "2026-11-07"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 26,
+              "currency": "USD"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": {
+            "amount": 3280,
+            "percent": 9.903381642512077,
+            "from": "2026-08-18",
+            "to": "2026-11-07",
+            "estimated": false,
+            "original": {
+              "amount": 2,
+              "currency": "USD"
+            }
+          },
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-16"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "유리 밀폐용기 800ml",
+        "manufacturer": null,
+        "manufacturers": [
+          "글라스룸",
+          "키친랩"
+        ],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 2,
+      "reviewCount": 2,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-17\"]",
+            "id": "DEMO-17",
+            "date": "2026-11-06",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 14900,
+                "currency": "KRW"
+              },
+              "krw": 14900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-06"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": null,
+            "orderTotal": null,
+            "originalLineTotal": null,
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": false,
+          "issues": [
+            "같은 상품명에 서로 다른 제조사가 있어요. 동일 상품인지 확인해주세요"
+          ],
+          "sourceMessageIds": [
+            "sample-17"
+          ]
+        },
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-18\"]",
+            "id": "DEMO-18",
+            "date": "2026-11-06",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 11900,
+                "currency": "KRW"
+              },
+              "krw": 11900,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-06"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": null,
+            "orderTotal": null,
+            "originalLineTotal": null,
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": false,
+          "issues": [
+            "같은 상품명에 서로 다른 제조사가 있어요. 동일 상품인지 확인해주세요"
+          ],
+          "sourceMessageIds": [
+            "sample-18"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "유기농 코튼 파우치",
+        "manufacturer": null,
+        "manufacturers": [],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 0,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-22\"]",
+            "id": "DEMO-22",
+            "date": "2026-11-03",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": true,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 9000,
+                "currency": "KRW"
+              },
+              "krw": 9000,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-03"
+            },
+            "regularBasis": "단가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": null,
+            "orderTotal": null,
+            "originalLineTotal": null,
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": false,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-22"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "리넨 키친 타월",
+        "manufacturer": null,
+        "manufacturers": [],
+        "sellers": [
+          "느린상점"
+        ],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": true
+      },
+      "purchaseCount": 1,
+      "reviewCount": 0,
+      "purchases": [
+        {
+          "order": {
+            "key": "[\"느린마켓\",\"demo-23\"]",
+            "id": "DEMO-23",
+            "date": "2026-11-02",
+            "dateBasis": "원문 구매일",
+            "seller": "느린상점",
+            "platform": "느린마켓",
+            "quantity": 1,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": {
+              "original": {
+                "amount": 8500,
+                "currency": "KRW"
+              },
+              "krw": 8500,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-02"
+            },
+            "regularBasis": "할인가를 소비자가로 간주",
+            "comparisonBasis": "unit",
+            "discount": {
+              "price": {
+                "original": {
+                  "amount": 8500,
+                  "currency": "KRW"
+                },
+                "krw": 8500,
+                "kind": "원화 원문",
+                "rate": 1,
+                "rateDate": "2026-11-02"
+              },
+              "rate": null,
+              "rateKind": "가격으로 계산",
+              "basis": "할인가 명시"
+            },
+            "lineTotal": {
+              "original": {
+                "amount": 8500,
+                "currency": "KRW"
+              },
+              "krw": 8500,
+              "kind": "원화 원문",
+              "rate": 1,
+              "rateDate": "2026-11-02"
+            },
+            "orderTotal": null,
+            "originalLineTotal": {
+              "amount": 8500,
+              "currency": "KRW"
+            },
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": true,
+          "issues": [],
+          "sourceMessageIds": [
+            "sample-23"
+          ]
+        }
+      ]
+    },
+    {
+      "identity": {
+        "name": "결제 확인",
+        "manufacturer": null,
+        "manufacturers": [],
+        "sellers": [],
+        "option": null,
+        "basis": "상품명 · 옵션·용량 유지",
+        "known": false
+      },
+      "purchaseCount": 1,
+      "reviewCount": 1,
+      "purchases": [
+        {
+          "order": {
+            "key": null,
+            "id": null,
+            "date": null,
+            "dateBasis": null,
+            "seller": null,
+            "platform": "unknown.example",
+            "quantity": null,
+            "cancelled": false,
+            "adjustmentOnly": false
+          },
+          "pricing": {
+            "regular": null,
+            "regularBasis": "소비자가 미확인",
+            "comparisonBasis": "unit",
+            "discount": null,
+            "lineTotal": null,
+            "orderTotal": null,
+            "originalLineTotal": null,
+            "originalOrderTotal": null,
+            "krwOrderTotal": null
+          },
+          "change": null,
+          "eligible": false,
+          "issues": [
+            "지원하는 상품 필드를 찾지 못했어요",
+            "주문일을 확인할 수 없어요",
+            "상품명을 확인할 수 없어요",
+            "상품 가격이 없거나 통화·금액이 불명확해요"
+          ],
+          "sourceMessageIds": [
+            "sample-24"
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "All messages and sample exchange rates are fictional development fixtures, not a real-world accuracy evaluation.",
+    "The separate 13-message HTML demo is evaluated in tests/browser.html; it is not this report dataset.",
+    "Korean/English label rules, table structures and supported Schema.org Order fields cannot cover every seller template or image attachment.",
+    "Product name and option matching cannot guarantee physical product identity; conflicting manufacturers require review.",
+    "Reference FX conversion is an estimate, not the credit-card settlement amount."
+  ]
+}
