@@ -12,6 +12,8 @@
 
 검사 job 권한은 `contents`, `pull-requests`, `actions`의 read뿐입니다. 배포에 PAT나 사용자 OAuth 토큰을 넣지 않습니다. GitHub가 제공하는 `GITHUB_TOKEN`과 OIDC를 사용합니다. main에서 수동 재실행해도 같은 승격·CI 조건을 확인합니다. 동시 배포는 직렬로 처리합니다. [Workflow run 조회 API](https://docs.github.com/en/rest/actions/workflow-runs#list-workflow-runs-for-a-workflow), [커밋에 연결된 PR 조회 API](https://docs.github.com/en/rest/commits/commits#list-pull-requests-associated-with-a-commit)
 
+REST 응답 계약은 지원 중인 `2022-11-28`로 고정합니다. 첫 배포에서 `2026-03-10` 응답의 `merge_commit_sha` 제거를 확인했으므로, 해당 필드가 제공되는 호환 버전을 사용합니다. 실제 병합 SHA 일치 조건은 그대로 유지하며 필드가 없으면 여전히 거부합니다. API 버전 갱신은 응답 계약 검토와 회귀 검사를 함께 수행해야 합니다. [지원 API 버전](https://docs.github.com/en/rest/about-the-rest-api/api-versions), [2026 API 변경 사항](https://docs.github.com/en/rest/about-the-rest-api/breaking-changes?apiVersion=2026-03-10)
+
 ## Git 담당의 최초 설정
 
 - 사용자 승인에 따라 저장소를 공개로 전환하고 Pages 배포 소스를 **GitHub Actions**로 설정했습니다(API 201, `build_type: workflow`). 비공개 당시의 Pages 요금제 제한 422와 원격 보호 403은 과거 설정 시점의 결과입니다. GitHub Free의 Pages 지원은 공개 저장소를 기준으로 합니다. [지원 범위와 설정](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)

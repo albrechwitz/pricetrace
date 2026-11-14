@@ -92,6 +92,14 @@ export function inspectSite(root='dist'){
   return {files:entries.length,digest:createHash('sha256').update(JSON.stringify(entries)).digest('hex')};
 }
 
+export async function readGitHubJSON(path,token,request=fetch){
+  // This supported response contract includes merge_commit_sha. The 2026 API
+  // removes that field; do not weaken the exact-merge check when upgrading.
+  const response=await request('https://api.github.com'+path,{headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'},signal:AbortSignal.timeout(30000)});
+  if(!response.ok)throw new Error('GitHub deployment metadata lookup failed: HTTP '+response.status);
+  return response.json();
+}
+
 async function main(){
   if(process.argv.includes('--site-only')){
     if(git('status','--porcelain','--untracked-files=all','--ignored','--','dist'))throw new Error('Deployment files differ from the checked-out commit.');
@@ -101,11 +109,7 @@ async function main(){
   }
   const context={eventName:process.env.GITHUB_EVENT_NAME,ref:process.env.GITHUB_REF,repository:process.env.GITHUB_REPOSITORY,sha:process.env.GITHUB_SHA};
   const token=process.env.GITHUB_TOKEN;if(!token)throw new Error('A read-only GitHub token is required for deployment metadata.');
-  const getJSON=async path=>{
-    const response=await fetch('https://api.github.com'+path,{headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+token,'X-GitHub-Api-Version':'2026-03-10'},signal:AbortSignal.timeout(30000)});
-    if(!response.ok)throw new Error('GitHub deployment metadata lookup failed: HTTP '+response.status);
-    return response.json();
-  };
+  const getJSON=path=>readGitHubJSON(path,token);
   const result=await verifyPromotion(context,{getJSON});console.log(JSON.stringify(result));
   if(process.env.GITHUB_STEP_SUMMARY)appendFileSync(process.env.GITHUB_STEP_SUMMARY,`Verified main commit \`${result.sha}\` from promotion PR #${result.promotion}; Repository checks run ${result.checksRun}.\n`);
 }
