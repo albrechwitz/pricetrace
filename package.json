@@ -1,0 +1,13 @@
+{
+  "name": "pricetrace",
+  "version": "3.4.0",
+  "private": true,
+  "type": "module",
+  "description": "Product price histories from Gmail orders with source evidence and KRW conversion",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
