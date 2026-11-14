@@ -175,3 +175,5 @@
   .settings-card{padding:22px 20px}.storage-settings-grid{gap:16px}
   .product-table{--product-column-width:360px}
 }
+
+.table-scroll>.product-table{min-width:1100px}
