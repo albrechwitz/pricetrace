@@ -1,0 +1,23 @@
+export const CACHE_VERSION=1;
+const DB_NAME='mailtrace-local',SESSION_KEY='mailtrace-google-session';
+const messageFields=['id','subject','sender','sourceDomain','migrated','receivedAt','text','htmlText','tables','orderIds','structured'];
+export function cleanSnapshot(value){
+  if(!value||typeof value.account!=='string'||!value.account.trim()||!Array.isArray(value.messages))throw new Error('계정과 메일 목록이 있는 Mailtrace 백업이 필요해요.');
+  const messages=value.messages.map(m=>{if(!m||typeof m.id!=='string'||!m.id||typeof m.text!=='string')throw new Error('백업의 메일 형식을 확인해주세요.');const clean={};for(const key of messageFields)if(m[key]!=null)clean[key]=m[key];return clean;});
+  const reviews=Object.fromEntries(Object.entries(value.reviews||{}).filter(([key,v])=>typeof key==='string'&&typeof v==='boolean'));
+  const merges=Object.fromEntries(Object.entries(value.merges||{}).filter(([key,v])=>typeof key==='string'&&typeof v==='string'&&key!==v));
+  const rates=Array.isArray(value.rates)?value.rates.filter(pair=>Array.isArray(pair)&&typeof pair[0]==='string'&&Number.isFinite(pair[1]?.rate)&&pair[1].rate>0).map(([key,r])=>[key,{rate:r.rate,date:r.date,source:r.source}]):[];
+  return {version:CACHE_VERSION,account:value.account.trim().toLowerCase(),messages:mergeMessages([],messages),rates,reviews,merges,savedAt:typeof value.savedAt==='string'?value.savedAt:new Date().toISOString()};
+}
+export function mergeMessages(existing,incoming){const map=new Map(existing.map(m=>[m.id,m]));for(const m of incoming)map.set(m.id,m);return [...map.values()];}
+export function encodeBackup(snapshot){return JSON.stringify({format:'mailtrace-backup',...cleanSnapshot(snapshot)},null,2);}
+export function decodeBackup(text){let data;try{data=JSON.parse(text);}catch{throw new Error('JSON 형식의 Mailtrace 백업을 선택해주세요.');}if(data.format!=='mailtrace-backup'||data.version!==CACHE_VERSION)throw new Error('지원하는 Mailtrace 백업 형식이 아니에요.');return cleanSnapshot(data);}
+let dbPromise;
+function open(){if(!dbPromise)dbPromise=new Promise((resolve,reject)=>{const request=indexedDB.open(DB_NAME,1);request.onupgradeneeded=()=>{const db=request.result;db.createObjectStore('accounts',{keyPath:'account'});db.createObjectStore('meta');};request.onsuccess=()=>{const db=request.result;db.onversionchange=()=>{db.close();dbPromise=null;};resolve(db);};request.onerror=()=>{dbPromise=null;reject(request.error);};request.onblocked=()=>reject(new Error('다른 탭이 저장소 변경을 막고 있어요. 이전 탭을 닫고 다시 시도해주세요.'));});return dbPromise;}
+async function transact(mode,fn){const db=await open();return new Promise((resolve,reject)=>{const tx=db.transaction(['accounts','meta'],mode);let result;fn(tx,v=>{result=v;});tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('브라우저 저장이 취소됐어요.'));});}
+export async function saveSnapshot(value){const data=cleanSnapshot(value);await transact('readwrite',tx=>{tx.objectStore('accounts').put(data);tx.objectStore('meta').put(data.account,'active');});return data;}
+export async function loadSnapshot(account){return transact('readonly',(tx,set)=>{const accounts=tx.objectStore('accounts');if(account){const r=accounts.get(account.trim().toLowerCase());r.onsuccess=()=>set(r.result?cleanSnapshot(r.result):null);}else{const active=tx.objectStore('meta').get('active');active.onsuccess=()=>{if(!active.result){set(null);return;}const r=accounts.get(active.result);r.onsuccess=()=>set(r.result?cleanSnapshot(r.result):null);};}});}
+export async function removeSnapshot(account){await transact('readwrite',tx=>{tx.objectStore('accounts').delete(account.trim().toLowerCase());const r=tx.objectStore('meta').get('active');r.onsuccess=()=>{if(r.result===account.trim().toLowerCase())tx.objectStore('meta').delete('active');};});}
+export function saveSession(value,storage=sessionStorage){const expiresAt=Math.min(Number(value.expiresAt),Date.now()+3600000);if(!value.token||!value.account||!value.clientId||!Number.isFinite(expiresAt))throw new Error('인증 세션을 확인할 수 없어요.');storage.setItem(SESSION_KEY,JSON.stringify({token:value.token,account:value.account,clientId:value.clientId,expiresAt}));}
+export function loadSession(clientId,storage=sessionStorage){try{const data=JSON.parse(storage.getItem(SESSION_KEY)||'null');if(!data||data.clientId!==clientId||!data.token||!data.account||!Number.isFinite(data.expiresAt)||data.expiresAt<=Date.now()+30000||data.expiresAt>Date.now()+3600000){storage.removeItem(SESSION_KEY);return null;}return data;}catch{storage.removeItem(SESSION_KEY);return null;}}
+export function clearSession(storage=sessionStorage){storage.removeItem(SESSION_KEY);}

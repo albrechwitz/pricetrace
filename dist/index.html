@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="여러 판매처의 주문 메일에서 같은 상품의 소비자가와 할인가, 원화 가격 변화를 추적하세요.">
+  <meta name="referrer" content="no-referrer">
+  <title>Mailtrace — 같은 상품, 달라진 가격</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 이동</a>
+<aside class="sidebar">
+  <a class="brand" href="./"><span class="logo">m<span>·</span></span>mailtrace</a>
+  <div class="workspace"><span class="workspace-icon">P</span><div>Personal workspace<small>나의 구매 기록</small></div></div>
+  <p class="nav-label">WORKSPACE</p>
+  <div id="account-controls" class="sidebar-account" hidden></div>
+  <nav id="primary-nav" aria-label="주 메뉴"></nav>
+  <div class="sidebar-bottom sidebar-storage"><span>최근 기록 보관</span><time id="saved-time">저장된 기록 없음</time><p id="sidebar-save-status" role="status" aria-live="polite"></p></div>
+</aside>
+<div class="shell">
+  <header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb-page">Home</strong></div></header>
+  <main id="main">
+    <section id="home-page" class="page-view home-page" aria-labelledby="home-title">
+      <div class="page-heading"><div><p class="eyebrow">YOUR PURCHASES, IN ONE PLACE</p><h1 id="home-title" tabindex="-1">Home</h1><p class="subtitle">저장된 구매 기록을 이어보세요.</p></div></div>
+      <div id="home-content"><section class="workflow-card"><h2>나의 구매 기록</h2><p id="workspace-record-count">저장된 구매 상품 0개</p><div id="workspace-notice" class="notice" role="status" aria-live="polite"></div></section></div>
+    </section>
+  </main>
+</div>
+</body></html>
