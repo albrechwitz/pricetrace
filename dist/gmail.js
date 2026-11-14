@@ -14,7 +14,7 @@ export function loadGoogleSDK() {
   });
   return sdkPromise;
 }
-export function authorize(clientId, callback,account='') {
+export function authorize(clientId, callback) {
   if (!globalThis.google?.accounts?.oauth2) throw new Error('Google 연결 준비 후 다시 눌러주세요.');
   const client = google.accounts.oauth2.initTokenClient({
     client_id: clientId, scope: SCOPE, include_granted_scopes: false,
@@ -25,7 +25,7 @@ export function authorize(clientId, callback,account='') {
     },
     error_callback: e => callback(new Error(e.type === 'popup_closed' ? '연결 창을 닫았어요. 준비되면 다시 연결해주세요.' : '연결 창을 열지 못했어요. 팝업 허용 여부를 확인해주세요.'))
   });
-  client.requestAccessToken(account?{prompt:'',hint:account}:{prompt:'select_account'});
+  client.requestAccessToken({prompt:'select_account'});
 }
 export function revoke(token) {
   if (token && globalThis.google?.accounts?.oauth2) google.accounts.oauth2.revoke(token, () => {});
