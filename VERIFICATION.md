@@ -69,9 +69,9 @@ node scripts/serve.mjs
 
 ## 파이프라인의 실제 상태
 
-GitHub Actions의 저장소 검사가 설치됐습니다. 로컬 Git 훅이 자동 설치된 것은 아니며, 비공개 저장소의 원격 브랜치 보호 API는 요금제 제한으로 403을 반환해 서버 강제 보호는 적용하지 못했습니다. CI 성공과 Git 담당의 운영 게이트를 서버가 강제하는 보호와 구분합니다.
+GitHub Actions의 저장소 검사가 설치됐습니다. 로컬 Git 훅은 자동 설치하지 않았습니다. 비공개 당시 원격 보호 API의 요금제 제한 403을 기록했으며, 이후 사용자 승인으로 공개 전환하고 main·stage 보호의 설정·재조회를 API 200으로 확인했습니다. 현재 PR과 최신 base 기준 `repository-checks`(GitHub Actions app 15368)가 필수이고 관리자에게도 적용되며 force push·삭제는 금지됩니다. GitHub 필수 승인 수 0과 독립 에이전트 검증 운영 게이트는 구분합니다.
 
-이번 검증 범위는 작업 PR을 통한 stage 통합입니다. main 승격과 GitHub Pages 배포는 포함하지 않습니다.
+이 문서의 C1–C11 및 모바일 수정 검증은 stage 통합 당시의 범위를 기록합니다. 이후 사용자 승인으로 확장한 main 승격과 GitHub Pages 게시 절차·현재 설정은 [배포 문서](docs/DEPLOYMENT.md)에 따로 기록합니다. 설정 완료와 실제 게시 성공은 구분합니다.
 
 ## 한계
 
