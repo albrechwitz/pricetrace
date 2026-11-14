@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,writeFileSync,rmSync,linkSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {checkDeploymentContext,selectPromotion,requireSuccessfulChecks,verifyPromotion,resolveSiteReference,inspectSite} from './check-pages.mjs';
+import {checkDeploymentContext,selectPromotion,requireSuccessfulChecks,verifyPromotion,resolveSiteReference,inspectSite,readGitHubJSON} from './check-pages.mjs';
 
 const repository='example/pricetrace',sha='a'.repeat(40),head='b'.repeat(40),previous='c'.repeat(40);
 const context={eventName:'push',ref:'refs/heads/main',repository,sha};
@@ -42,6 +42,20 @@ test('promotion verification binds API metadata to the checked-out SHA and perfo
   await assert.rejects(()=>verifyPromotion(context,{getJSON,readGit:()=>previous}));
   assert.equal(paths.length,3);
   await assert.rejects(()=>verifyPromotion(context,{getJSON:async()=>({object:{sha:previous}}),readGit}),/newer main/);
+});
+
+test('GitHub transport preserves the supported merge-SHA response contract',async()=>{
+  const requests=[];
+  const request=async(url,options)=>{
+    requests.push(url);
+    assert.equal(options.headers['X-GitHub-Api-Version'],'2022-11-28');
+    const body=url.includes('/git/ref/')?{object:{sha}}:url.includes('/commits/')?[promotion]:{workflow_runs:[successful]};
+    return {ok:true,json:async()=>body};
+  };
+  const result=await verifyPromotion(context,{getJSON:path=>readGitHubJSON(path,'synthetic-token',request),readGit:(...args)=>args[0]==='rev-parse'?sha:previous+' '+head});
+  assert.equal(result.sha,sha);assert.equal(requests.length,3);
+  const responseWithoutMergeSha={...promotion};delete responseWithoutMergeSha.merge_commit_sha;
+  assert.throws(()=>selectPromotion([responseWithoutMergeSha],context,[previous,head]),/merged stage-to-main PR/);
 });
 
 test('project assets remain beneath /pricetrace/ and missing or root-absolute links fail',()=>{
